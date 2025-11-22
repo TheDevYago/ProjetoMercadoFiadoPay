@@ -101,4 +101,34 @@ public class FiadoPayClient {
             e.printStackTrace();
         }
     }
+
+    public void getPaymentStatus(String paymentId, String token) {
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL + "/fiadopay/gateway/payments/" + paymentId))
+                .header("Authorization", "Bearer " + token)
+                .GET()
+                .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println("[API QUERY] Status do pagamento " + paymentId + ": " + response.statusCode());
+            System.out.println(" -> Corpo: " + response.body());
+        } catch (Exception e) { e.printStackTrace(); }
+    }
+
+    public void refundPayment(String paymentId, String token) {
+        try {
+            String jsonBody = "{\"paymentId\": \"" + paymentId + "\"}";
+            
+            HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL + "/fiadopay/gateway/refunds")) 
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + token)
+                .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
+                .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println("[API REFUND] Tentativa de devolução: " + response.statusCode());
+        } catch (Exception e) { e.printStackTrace(); }
+    }
 }
