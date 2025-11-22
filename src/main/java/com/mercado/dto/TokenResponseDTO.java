@@ -1,0 +1,9 @@
+package com.mercado.dto;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public record TokenResponseDTO(@JsonProperty("access_token") String accessToken, @JsonProperty("token_type") String tokenType) {
+    
+}

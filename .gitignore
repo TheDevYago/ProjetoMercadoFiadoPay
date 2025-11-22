@@ -1,0 +1,21 @@
+# Ignorar pasta de compilação do Maven
+target/
+
+# Ignorar arquivos de configuração do VS Code / Eclipse / IntelliJ
+.vscode/
+.idea/
+.settings/
+.classpath
+.project
+*.launch
+
+# Ignorar arquivos temporários do Banco de Dados H2
+*.mv.db
+*.trace.db
+
+# Ignorar arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar logs
+*.log
